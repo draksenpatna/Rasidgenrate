@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>शुल्क संग्रह फॉर्म</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif; /* इंटर फॉन्ट का उपयोग */
+      padding: 20px;
+      background-color: #f0f2f5; /* हल्का ग्रे बैकग्राउंड */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    h2, h3 ,h4 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    h2 { font-size: 1.8em; }
+    h3 { font-size: 1.4em; }
+    h4 { font-size: 1.2em; color: #555; margin-bottom: 20px; }
+
+    #print-area {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px; /* गोल कोने */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 700px;
+      box-sizing: border-box;
+      margin-bottom: 25px;
+    }
+
+    form label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+    form label input {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px; /* गोल कोने */
+      margin-left: 10px;
+      font-size: 1em;
+    }
+    form label input[type="date"] {
+      max-width: 150px; /* दिनांक इनपुट के लिए निश्चित चौड़ाई */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+      background-color: #fdfdfd;
+      border-radius: 8px; /* गोल कोने */
+      overflow: hidden; /* बॉर्डर रेडियस के लिए */
+    }
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #e0e0e0;
+      text-align: left;
+      font-size: 0.95em;
+      color: #333;
+    }
+    th {
+      background-color: #eef2f7; /* हेडर के लिए हल्का नीला */
+      font-weight: bold;
+      color: #2a65ba;
+    }
+    table input[type="number"] {
+      width: calc(100% - 10px); /* पैडिंग के लिए एडजस्ट करें */
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+    table tr:last-child td {
+      font-weight: bold;
+      background-color: #f7f9fc;
+    }
+    table tr:last-child span {
+      color: #007bff; /* कुल राशि के लिए नीला रंग */
+    }
+    table td strong {
+      color: #28a745; /* 'शब्दों में' के लिए हरा रंग */
+    }
+
+    .signature {
+      text-align: right;
+      margin-top: 40px;
+      font-weight: bold;
+      color: #333;
+      padding-right: 15px;
+    }
+
+    .btn-group {
+      margin-top: 25px;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap; /* छोटे स्क्रीन पर बटन को रैप करने के लिए */
+      justify-content: center;
+      gap: 15px; /* बटन के बीच गैप */
+    }
+    button {
+      padding: 12px 25px;
+      margin: 0; /* गैप के लिए 'gap' का उपयोग करें */
+      font-size: 1em;
+      font-weight: bold;
+      color: #fff;
+      background-color: #007bff; /* नीला बटन */
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    }
+    button:hover {
+      background-color: #0056b3; /* गहरा नीला हॉवर पर */
+      transform: translateY(-2px); /* हॉवर पर हल्का ऊपर */
+    }
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+    }
+
+    /* मोबाइल और छोटे टैबलेट के लिए रिस्पोंसिव डिज़ाइन */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+      #print-area {
+        padding: 20px;
+        max-width: 95%;
+      }
+      form label {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      form label input {
+        margin-left: 0;
+        margin-top: 5px;
+        width: 100%;
+      }
+      .btn-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+      button {
+        width: 90%;
+        max-width: 300px;
+      }
+      table, th, td {
+        font-size: 0.85em; /* छोटे स्क्रीन पर फॉन्ट छोटा करें */
+      }
+      table th, table td {
+        padding: 8px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="print-area">
+    <h2>बिहार राज्य विश्वविद्यालय एवं महाविद्यालय कर्मचारी महासंघ </h2>
+    <h3>लोहियानगर,कंकड़बाग,पटना-800020</h3>
+    <h4>शुल्क संग्रह रसीद</h4>
+
+    <form id="feeForm">
+      <label>क्रमांक: <input type="text" name="serial"></label><br>
+      <label>दिनांक: <input type="date" name="date"></label><br>
+      <label>इकाई का नाम: <input type="text" name="unit"></label><br>
+      <label>प्रक्षेत्र: <input type="text" name="area"></label>
+
+      <table>
+        <tr><th>विवरण</th><th>राशि ₹</th></tr>
+        <tr><td>1. सम्बद्धता शुल्क</td><td><input type="number" name="fee1"></td></tr>
+        <tr><td>2. सदस्यता शुल्क</td><td><input type="number" name="fee2"></td></tr>
+        <tr><td>3. संघर्ष शुल्क</td><td><input type="number" name="fee3"></td></tr>
+        <tr><td>4. भवन स्थायीकरण शुल्क</td><td><input type="number" name="fee4"></td></tr>
+        <tr><td>5. विज्ञापन शुल्क</td><td><input type="number" name="fee5"></td></tr>
+        <tr><td>6. विशेष चंदा</td><td><input type="number" name="fee6"></td></tr>
+        <tr><td>7. अन्य 1</td><td><input type="number" name="fee7"></td></tr>
+        <tr><td>8. अन्य 2</td><td><input type="number" name="fee8"></td></tr>
+        <tr><th>कुल राशि</th><th><span id="total">0</span></th></tr>
+        <tr><td colspan="2"><strong>शब्दों में:</strong> <span id="totalWords"></span></td></tr>
+      </table>
+    </form>
+
+    <div class="signature">कोषाध्‍यक्ष / प्राप्‍तकर्ता</div>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" onclick="calculateTotal()">कुल राशि निकालें</button>
+    <button type="button" onclick="saveAndPrint()">Print & Save</button>
+    <button type="button" onclick="exportToExcel()">Export to Excel</button>
+    <button type="button" onclick="exportToPDF()">Export to PDF</button>
+    <button type="button" onclick="deleteBySerial()">क्रमांक से रसीद हटाएं</button>
+    <button type="button" onclick="reprintReceipt()">Reprint Saved Receipt</button>
+  </div>
+
+  <table id="savedTable" border="1">
+    <thead>
+      <tr>
+        <th>क्रमांक</th><th>दिनांक</th><th>इकाई</th><th>प्रक्षेत्र</th>
+        <th>सम्बद्धता शुल्क</th><th>सदस्यता शुल्क</th><th>संघर्ष शुल्क</th><th>भवन स्थायीकरण शुल्क</th><th>विज्ञापन शुल्क</th><th>विशेष चंदा</th><th>अन्य 1</th><th>अन्य 2</th><th>कुल</th>
+      </tr>
+    </thead>
+    <tbody id="savedBody"></tbody>
+  </table>
+
+  <!-- Scripts -->
+  <!-- HTML2Canvas: HTML को इमेज में बदलने के लिए -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- jsPDF: PDF बनाने के लिए -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <script>
+    // कुल राशि की गणना करता है और उसे शब्दों में परिवर्तित करता है
+    function calculateTotal() {
+      let total = 0;
+      // सभी शुल्क इनपुट फ़ील्ड से मान प्राप्त करें
+      for (let i = 1; i <= 8; i++) {
+        let val = parseFloat(document.querySelector(`[name='fee${i}']`).value) || 0;
+        total += val;
+      }
+      // कुल राशि को अपडेट करें
+      document.getElementById("total").textContent = total.toFixed(2);
+      // कुल राशि को शब्दों में बदलकर अपडेट करें
+      document.getElementById("totalWords").textContent = convertNumberToWords(total);
+    }
+
+    // संख्या को हिंदी शब्दों में परिवर्तित करता है (भारतीय प्रणाली: हजार, लाख, करोड़)
+    function convertNumberToWords(amount) {
+      if (amount === 0) {
+        return 'शून्य मात्र';
+      }
+
+      // 0-99 तक की संख्याओं के लिए हिंदी शब्द
+      const hindiWords = [
+        '', 'एक', 'दो', 'तीन', 'चार', 'पांच', 'छह', 'सात', 'आठ', 'नौ', 'दस',
+        'ग्यारह', 'बारह', 'तेरह', 'चौदह', 'पंद्रह', 'सोलह', 'सत्रह', 'अठारह', 'उन्नीस', 'बीस',
+        'इक्कीस', 'बाईस', 'तेईस', 'चौबीस', 'पच्चीस', 'छब्बीस', 'सत्ताईस', 'अट्ठाईस', 'उनतीस', 'तीस',
+        'इकतीस', 'बत्तीस', 'तैंतीस', 'चौंतीस', 'पैंतीस', 'छत्तीसी', 'सैंतीस', 'अड़तीस', 'उनतालीस', 'चालीस',
+        'इकतालीस', 'बयालीस', 'तैंतालीस', 'चौवालीस', 'पैंतालीस', 'छियालीस', 'सैंतालीस', 'अड़तालीस', 'उनचास', 'पचास',
+        'इक्यावन', 'बावन', 'तिरेपन', 'चौवन', 'पचपन', 'छप्पन', 'सत्तावन', 'अट्ठावन', 'उनसठ', 'साठ',
+        'इकसठ', 'बासठ', 'तिरेसठ', 'चौंसठ', 'पैंसठ', 'छियासठ', 'सड़सठ', 'अड़सठ', 'उनहत्तर', 'सत्तर',
+        'इकहत्तर', 'बहत्तर', 'तिहत्तर', 'चौहत्तर', 'पचहत्तर', 'छिहत्तर', 'सत्ताहत्तर', 'अठहत्तर', 'उन्यासी', 'अस्सी',
+        'इक्यासी', 'बयासी', 'तिरासी', 'चौरासी', 'पचासी', 'छियासी', 'सतासी', 'अट्ठासी', 'नवासी', 'नब्बे',
+        'इक्यानवे', 'बानवे', 'तिरानवे', 'चौरांवे', 'पचानवे', 'छियानवे', 'सतानवे', 'अठानवे', 'निन्यानवे'
+      ];
+
+      // सहायक फंक्शन: 0-999 तक की संख्या को शब्दों में बदलना
+      function convertChunk(num) {
+        let str = '';
+        if (num >= 100) {
+          str += hindiWords[Math.floor(num / 100)] + ' सौ ';
+          num %= 100;
+        }
+        if (num > 0) {
+          str += hindiWords[num]; // 0-99 के लिए सीधे lookup का उपयोग करें
+        }
+        return str.trim();
+      }
+
+      let num = Math.floor(amount); // शब्दों के लिए केवल पूर्णांक भाग लें
+      let words = [];
+
+      // करोड़ के लिए गणना (भारतीय प्रणाली: 1,00,00,000)
+      const crore = Math.floor(num / 10000000);
+      num %= 10000000;
+      if (crore > 0) {
+        words.push(convertChunk(crore) + ' करोड़');
+      }
+
+      // लाख के लिए गणना (भारतीय प्रणाली: 1,00,000)
+      const lakh = Math.floor(num / 100000);
+      num %= 100000;
+      if (lakh > 0) {
+        words.push(convertChunk(lakh) + ' लाख');
+      }
+
+      // हजार के लिए गणना (भारतीय प्रणाली: 1,000)
+      const thousand = Math.floor(num / 1000);
+      num %= 1000;
+      if (thousand > 0) {
+        words.push(convertChunk(thousand) + ' हजार');
+      }
+
+      // बची हुई संख्या (0-999) के लिए गणना
+      const remainder = num;
+      if (remainder > 0) {
+        words.push(convertChunk(remainder));
+      }
+
+      // सभी खंडों को जोड़ें और "मात्र" जोड़ें
+      let finalWords = words.join(' ').trim();
+      return (finalWords || 'शून्य') + ' मात्र';
+    }
+
+    // डेटा को लोकल स्टोरेज में सहेजता है और रसीद प्रिंट करता है
+    function saveAndPrint() {
+      const form = document.getElementById("feeForm");
+      const formData = new FormData(form);
+      let data = {};
+      formData.forEach((value, key) => { data[key] = value; });
+      data["total"] = document.getElementById("total").textContent;
+
+      let allData = JSON.parse(localStorage.getItem("feeReceipts") || "[]");
+      allData.push(data);
+      localStorage.setItem("feeReceipts", JSON.stringify(allData));
+
+      loadSavedData(); // सहेजे गए डेटा को तालिका में लोड करें
+
+      // प्रिंट करने के लिए प्रिंट एरिया का क्लोन बनाएं
+      const printArea = document.getElementById("print-area").cloneNode(true);
+      const inputs = printArea.querySelectorAll("input");
+
+      // क्लोन किए गए प्रिंट एरिया में इनपुट फ़ील्ड को उनके मान वाले स्पैन से बदलें
+      inputs.forEach(input => {
+        const span = document.createElement("span");
+        span.textContent = input.value;
+        input.parentNode.replaceChild(span, input);
+      });
+
+      // कुल राशि और शब्दों में कुल राशि को अपडेट करें
+      const total = document.getElementById("total").textContent;
+      printArea.querySelector("#total").textContent = total;
+      printArea.querySelector("#totalWords").textContent = convertNumberToWords(parseFloat(total));
+
+      // एक नई प्रिंट विंडो खोलें और सामग्री को लिखें
+      const printWindow = window.open("", "", "width=800,height=600");
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print</title>
+            <style>
+              body { font-family: sans-serif; padding: 20px; }
+              table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+              td, th { padding: 8px; border: 1px solid #000; text-align: left; }
+              h2, h3, h4 { text-align: center; }
+              .signature { text-align: right; margin-top: 40px; font-weight: bold; }
+            </style>
+          </head>
+          <body>${printArea.innerHTML}</body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print(); // प्रिंट कमांड ट्रिगर करें
+      printWindow.close(); // प्रिंट होने के बाद विंडो बंद करें
+    }
+
+    // लोकल स्टोरेज से सहेजे गए डेटा को लोड करता है और तालिका में प्रदर्शित करता है
+    function loadSavedData() {
+      const savedBody = document.getElementById("savedBody");
+      savedBody.innerHTML = ""; // मौजूदा पंक्तियों को साफ करें
+      let allData = JSON.parse(localStorage.getItem("feeReceipts") || "[]");
+      // प्रत्येक सहेजे गए रिकॉर्ड के लिए एक नई पंक्ति बनाएं
+      allData.forEach(data => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${data.serial}</td><td>${data.date}</td><td>${data.unit}</td><td>${data.area}</td>
+          <td>${data.fee1 || 0}</td><td>${data.fee2 || 0}</td><td>${data.fee3 || 0}</td>
+          <td>${data.fee4 || 0}</td><td>${data.fee5 || 0}</td><td>${data.fee6 || 0}</td>
+          <td>${data.fee7 || 0}</td><td>${data.fee8 || 0}</td><td>${data.total}</td>
+        `;
+        savedBody.appendChild(row);
+      });
+    }
+
+    // सहेजे गए डेटा को एक्सेल फ़ाइल के रूप में निर्यात करता है
+    function exportToExcel() {
+      let table = document.getElementById("savedTable");
+      let html = table.outerHTML; // तालिका के HTML को प्राप्त करें
+      let url = 'data:application/vnd.ms-excel,' + encodeURIComponent(html); // डेटा यूआरएल बनाएं
+      let link = document.createElement('a');
+      link.href = url;
+      link.download = 'fee_data.xls'; // फ़ाइल नाम सेट करें
+      link.click(); // डाउनलोड ट्रिगर करें
+    }
+
+    // सहेजे गए डेटा को PDF फ़ाइल के रूप में निर्यात करता है
+    async function exportToPDF() {
+      const { jsPDF } = window.jspdf;
+
+      const table = document.getElementById("savedTable");
+      const pdf = new jsPDF('p', 'mm', 'a4'); // नया PDF दस्तावेज़ बनाएं (पोर्ट्रेट, मिमी में, A4 आकार)
+      const margin = 10;
+      const pageWidth = pdf.internal.pageSize.getWidth() - margin * 2;
+
+      // तालिका को कैनवास में प्रस्तुत करें
+      const tableCanvas = await html2canvas(table);
+      const tableImgData = tableCanvas.toDataURL('image/png'); // कैनवास को PNG इमेज डेटा में बदलें
+      const tableProps = pdf.getImageProperties(tableImgData);
+      const tableHeight = (tableProps.height * pageWidth) / tableProps.width; // छवि के अनुपात को बनाए रखें
+
+      // PDF में छवि जोड़ें
+      pdf.addImage(tableImgData, 'PNG', margin, margin, pageWidth, tableHeight);
+      pdf.save('saved_data_only.pdf'); // PDF को सहेजें
+    }
+
+    // सीरियल नंबर द्वारा सहेजी गई रसीद को हटाता है
+    function deleteBySerial() {
+      let serial = prompt("जिस क्रमांक की रसीद हटानी है उसका क्रमांक दर्ज करें:");
+      if (!serial) return; // अगर उपयोगकर्ता ने रद्द किया तो बाहर निकलें
+      let allData = JSON.parse(localStorage.getItem("feeReceipts") || "[]");
+      // दिए गए सीरियल नंबर को छोड़कर सभी रिकॉर्ड फ़िल्टर करें
+      allData = allData.filter(data => data.serial !== serial);
+      localStorage.setItem("feeReceipts", JSON.stringify(allData));
+      loadSavedData(); // तालिका को फिर से लोड करें
+      alert("क्रमांक " + serial + " की रसीद हटा दी गई है (अगर मौजूद थी)।");
+    }
+
+    // सहेजी गई रसीद को फिर से प्रिंट करने के लिए उसके डेटा को फॉर्म में लोड करता है और प्रिंट करता है
+    function reprintReceipt() {
+      let serial = prompt("जिस क्रमांक की रसीद फिर से प्रिंट करनी है उसका क्रमांक दर्ज करें:");
+      if (!serial) return; // अगर उपयोगकर्ता ने रद्द किया तो बाहर निकलें
+      let allData = JSON.parse(localStorage.getItem("feeReceipts") || "[]");
+      let data = allData.find(d => d.serial === serial); // सीरियल नंबर द्वारा डेटा खोजें
+      if (!data) {
+        alert("यह क्रमांक नहीं मिला।"); // यदि डेटा नहीं मिला तो अलर्ट करें
+        return;
+      }
+
+      // खोजे गए डेटा से फॉर्म फ़ील्ड भरें
+      let form = document.getElementById("feeForm");
+      for (let key in data) {
+        if (form.elements[key]) form.elements[key].value = data[key];
+      }
+      // कुल और शब्दों में कुल राशि अपडेट करें
+      document.getElementById("total").textContent = data.total;
+      document.getElementById("totalWords").textContent = convertNumberToWords(parseFloat(data.total));
+
+      saveAndPrint(); // फिर से प्रिंट करने के लिए saveAndPrint फ़ंक्शन का उपयोग करें
+    }
+
+    // पेज लोड होने पर सहेजे गए डेटा को लोड करें
+    window.onload = loadSavedData;
+  </script>
+
+</body>
+</html>
